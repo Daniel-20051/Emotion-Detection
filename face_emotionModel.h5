@@ -1,0 +1,2 @@
+# This file will be generated when you run model_training.py
+# The trained Keras model will be saved here in HDF5 format
