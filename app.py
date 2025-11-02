@@ -22,13 +22,19 @@ class EmotionPredictor:
     def load_model(self):
         """Load the trained emotion detection model"""
         try:
-            if os.path.exists('face_emotionModel.h5'):
+            model_path = os.path.join(os.path.dirname(__file__), 'face_emotionModel.h5')
+            if os.path.exists(model_path):
+                self.model = tf.keras.models.load_model(model_path)
+                print("Model loaded successfully!")
+            elif os.path.exists('face_emotionModel.h5'):
                 self.model = tf.keras.models.load_model('face_emotionModel.h5')
                 print("Model loaded successfully!")
             else:
-                print("Model file not found. Please train the model first.")
+                print("Model file not found. Using fallback prediction.")
+                self.model = None
         except Exception as e:
             print(f"Error loading model: {e}")
+            self.model = None
     
     def extract_features_from_image(self, image):
         """Extract facial features from image (simplified for demo)"""
