@@ -1,6 +1,11 @@
-# Vercel serverless function entry point
+import sys
+import os
+
+# Add the parent directory to the Python path to import app
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from app import app
 
-# This is required for Vercel
-def handler(request):
-    return app(request.environ, lambda status, headers: None)
+# Export the Flask app for Vercel
+# This is the standard pattern for Vercel Python functions
+app = app
